@@ -19,6 +19,7 @@ const Login = () => {
   const isInvalid = password.length < 6 || email === "";
   const isInputEmail = email !== "";
   const isInputPassword = password !== "";
+
   //handle UI
   const [displayPass, setDisplayPass] = React.useState(true);
   const [randomImage, setRandomImage] = React.useState(s1);
@@ -118,7 +119,6 @@ const Login = () => {
                   className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer focus:outline-none"
                   onClick={handleDisplay}
                 >
-                  {" "}
                   {password === ""
                     ? ""
                     : "Hiển thị" && displayPass
