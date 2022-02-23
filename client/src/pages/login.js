@@ -1,5 +1,6 @@
 import React from "react";
 import { AiFillFacebook } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import Appstore from "../images/appstore.png";
@@ -9,13 +10,14 @@ import s2 from "../images/s2.png";
 import s3 from "../images/s3.png";
 import s4 from "../images/s4.png";
 import s5 from "../images/s5.png";
+import { Login } from "../redux/actions/authActions";
 import globalPageStyle from "./globalPageStyle.module.css";
 
-const Login = () => {
+const LoginPage = () => {
   const initialState = { email: "", password: "" };
   const [userData, setUserData] = React.useState(initialState);
   const { email, password } = userData;
-
+  const dispatch = useDispatch();
   const isInvalid = password.length < 6 || email === "";
   const isInputEmail = email !== "";
   const isInputPassword = password !== "";
@@ -43,6 +45,10 @@ const Login = () => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(Login(userData));
+  };
   return (
     <>
       <div className="container flex mx-auto max-w-screen-md items-center h-full mb-12 xs-res2:mt-24 xs-res2:mb-8">
@@ -64,7 +70,7 @@ const Login = () => {
               />
             </h1>
 
-            <form className="relative">
+            <form className="relative" onSubmit={handleSubmit}>
               {isInputEmail && (
                 <p className="text-xs -mt-1 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">
                   Email :
@@ -234,4 +240,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
