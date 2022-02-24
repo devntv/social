@@ -13,5 +13,24 @@ export const Login = (data) => async (dispatch) => {
     // route from router.post("/login", authController.login);
     const res = await postData("login", data);
     console.log(res);
-  } catch (error) {}
+    dispatch({
+      type: "AUTH",
+      payload: {
+        token: res.data.access_token,
+        user: res.data.user,
+      },
+    });
+    localStorage.setItem("loginfirsttime", true);
+    dispatch({
+      type: "NOTICE",
+      payload: {
+        success: res.data.msg,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: "NOTICE",
+      payload: { error: error.response.data.msg },
+    });
+  }
 };
